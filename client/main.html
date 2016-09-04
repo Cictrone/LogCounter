@@ -3,23 +3,58 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <h1>LogCounter</h1>
 
-  {{> hello}}
-  {{> info}}
+
+  {{#if currentUser}}
+    {{> dashboard}}
+  {{else}}
+    {{> login}}
+    {{> register}}
+  {{/if}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+
+
+<template name="dashboard">
+  <p><a href="#" class="logout">Logout</a></p>
+  {{#with player}}
+    {{> playerStats}}
+    <button class="up-button">Up</button>
+    <button class="down-button">Down</button>
+    <button class="reset-button">Reset</button>
+  {{/with}}
 </template>
 
-<template name="info">
-  <h2>Learn Meteor!</h2>
-  <ul>
-    <li><a href="https://www.meteor.com/try" target="_blank">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com" target="_blank">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com" target="_blank">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com" target="_blank">Discussions</a></li>
-  </ul>
+<template name="playerStats">
+  <h1>
+    Player: {{currentUser.username}}
+  </h1>
+  <h3>
+    Worth: {{worth}}
+  </h3>
+  <h3>
+    Drink in Worth Level: {{drink}}
+  </h3>
+  <h3>
+    Total Drinks Consumed: {{total_drinks}}
+  </h3>
+</template>
+
+
+<template name="register">
+  <form>
+    <input type="username" name="registerUsername">
+    <input type="password" name="registerPassword">
+    <input type="submit" value="Register">
+  </form>
+</template>
+
+
+<template name="login">
+  <form>
+    <input type="username" name="loginUsername">
+    <input type="password" name="loginPassword">
+    <input type="submit" value="Login">
+  </form>
 </template>
