@@ -16,7 +16,7 @@ Session.setDefault('prompt', 'login');
 
 Template.body.helpers({
   players(){
-    return Players.find({});
+    return Players.find({}).fetch();
   },
   promptPage(){
     return Session.get('prompt');
