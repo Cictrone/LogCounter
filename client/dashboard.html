@@ -1,0 +1,37 @@
+<template name="dashboard">
+  <div class="ui secondary pointing menu">
+    <a class="active item">
+      Home
+    </a>
+    <div class="right menu">
+      <a class="ui item" id="logout">
+        Logout
+      </a>
+    </div>
+  </div>
+
+  {{#with player}}
+    {{> playerCard}}
+
+    <div class="ui buttons">
+      <div class="ui labeled primary button" id="up-button" tabindex="0">
+        <div class="ui green button">
+          <i class="bar icon"></i> Drink Up!
+        </div>
+      </div>
+      <div class="or">
+      </div>
+      <div class="ui labeled primary button" id="down-button" tabindex="0">
+        <div class="ui red button">
+          <i class="bar icon"></i> Drink Down!
+        </div>
+      </div>
+    </div><br /><br />
+
+    <div class="ui labeled primary button" id="reset-button" tabindex="0">
+      <div class="ui yellow button">
+        <i class="backward icon"></i> Reset!
+      </div>
+    </div>
+  {{/with}}
+</template>
