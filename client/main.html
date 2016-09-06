@@ -24,109 +24,79 @@
   </div>
 </template>
 
-<template name="playerCard">
-  {{#if currentUser}}
-  <div style="text-align: center" class="ui centered card">
-    <a class="image" href="#">
-      <img src="person.png">
-    </a>
-    <div class="content">
-      <a class="header" href="#">{{currentUser.username}}</a>
-      <div class="meta">
-        <a>Status: {{level_name}}</a>
-      </div>
-      <div class="description">
-          Worth: {{worth}}<br />
-          Drink in Worth Level: {{drink}}<br />
-          Total Drinks Consumed: {{total_drinks}}<br />
-      </div>
-    </div>
-  </div>
-  {{else}}
-  <div style="text-align: center" class="card">
-    <a class="image" href="#">
-      <img src="person.png">
-    </a>
-    <div class="content">
-      <a class="header" href="#">{{name}}</a>
-      <div class="meta">
-        <a>Status: {{level_name}}</a>
-      </div>
-      <div class="description">
-        Worth: {{worth}}<br />
-        Drink in Worth Level: {{drink}}<br />
-        Total Drinks Consumed: {{total_drinks}}<br />
-      </div>
-    </div>
-  </div>
-  {{/if}}
-</template>
-
 
 <template name="register">
-  <div class="ui middle aligned center aligned grid">
-    <div class="column">
-      <h2 class="ui image header">
-        <div class="content">
-          Register
-        </div>
-      </h2>
-      <form class="ui large form">
-        <div class="ui stacked secondary segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" name="registerUsername" placeholder="Username">
-            </div>
+  <div class="ui grid">
+    <div class="three column row">
+      <div class="column"></div>
+      <div class="column">
+        <h2 class="ui image header">
+          <div class="content">
+            Register
           </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" name="registerPassword" placeholder="Password">
+        </h2>
+        <form class="ui large form">
+          <div class="ui stacked secondary segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" name="registerUsername" placeholder="Username">
+              </div>
             </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" name="registerPassword" placeholder="Password">
+              </div>
+            </div>
+            <input type="submit" value="Register" class="ui teal submit button">
           </div>
-          <input type="submit" value="Register" class="ui teal submit button">
+        </form>
+        <div class="ui message">
+          Not New? <a href="" id="changeToLogin">Login</a>
         </div>
-      </form>
+      </div>
+      <div class="column"></div>
     </div>
-  </div>
-  <div class="ui message">
-    Not New? <a href="" id="changeToLogin">Login</a>
   </div>
 </template>
 
 
 <template name="login">
-  <div class="ui middle aligned center aligned grid">
-    <div class="column">
-      <h2 class="ui image header">
-        <div class="content">
-          Log-in to your account
-        </div>
-      </h2>
-      <form class="ui large form">
-        <div class="ui stacked secondary segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              <input type="text" name="loginUsername" placeholder="Username">
-            </div>
+  <div class="ui grid">
+    <div class="three column row">
+      <div class="column"></div>
+      <div class="column">
+        <h2 class="ui image header">
+          <div class="content">
+            Log-in to your account
           </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              <input type="password" name="loginPassword" placeholder="Password">
+        </h2>
+        <form class="ui large form">
+          <div class="ui stacked secondary segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" name="loginUsername" placeholder="Username">
+              </div>
             </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" name="loginPassword" placeholder="Password">
+              </div>
+            </div>
+            <input type="submit" value="Login" class="ui teal submit button">
           </div>
-          <input type="submit" value="Login" class="ui teal submit button">
+        </form>
+        <div class="ui message">
+          New Here? <a href="" id="changeToRegister">Register</a>
         </div>
-      </form>
+        <div class="ui message">
+          Looking for a Game Summary? <a href="" id="changeToSummary">Summary</a>
+        </div>
+      </div>
+      <div class="column"></div>
     </div>
-  </div>
-  <div class="ui message">
-    New Here? <a href="" id="changeToRegister">Register</a>
-  </div>
-  <div class="ui message">
-    Looking for a Game Summary? <a href="" id="changeToSummary">Summary</a>
   </div>
 </template>

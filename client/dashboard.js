@@ -19,7 +19,7 @@ Template.dashboard.helpers({
         name: Meteor.user().username,
         worth: START_WORTH,
         worth_level: START_WORTH,
-        drink: 1,
+        glass: 1,
         total_drinks: 0,
         level_name: LEVEL_NAMES[0]
       }
@@ -41,7 +41,7 @@ Template.dashboard.events({
         name: player.name,
         worth: (player.worth+1),
         worth_level: player.worth_level,
-        drink: player.drink,
+        glass: player.glass,
         total_drinks : player.total_drinks - 1,
         level_name: LEVEL_NAMES[(player.worth_level/5)-2]
       }
@@ -52,18 +52,18 @@ Template.dashboard.events({
     event.preventDefault();
 
     if(player.worth-- == 1){
-      if(player.drink == 2){
+      if(player.glass == 2){
         if(player.worth_level != MAX_WORTH){
           player.worth_level += WORTH_INCREMENT;
-          player.drink = 1;
+          player.glass = 1;
         }
         else{
-          player.drink += 1;
+          player.glass += 1;
         }
         player.worth = player.worth_level;
       }
       else{
-        player.drink += 1;
+        player.glass += 1;
         player.worth = player.worth_level;
       }
     }
@@ -76,7 +76,7 @@ Template.dashboard.events({
         name: player.name,
         worth: player.worth,
         worth_level: player.worth_level,
-        drink: player.drink,
+        glass: player.glass,
         total_drinks: player.total_drinks + 1,
         level_name: LEVEL_NAMES[(player.worth_level/5)-2]
       }
@@ -88,7 +88,7 @@ Template.dashboard.events({
 
     player.worth = START_WORTH;
     player.worth_level = START_WORTH;
-    player.drink = 1;
+    player.glass = 1;
 
     Players.update(
       {
@@ -98,7 +98,7 @@ Template.dashboard.events({
         name: player.name,
         worth: player.worth,
         worth_level: player.worth_level,
-        drink: player.drink,
+        glass: player.glass,
         total_drinks : 0,
         level_name: LEVEL_NAMES[0]
       }
