@@ -3,6 +3,13 @@ import { Session } from 'meteor/session';
 
 Players = new Mongo.Collection('players');
 
+var imageStore = new FS.Store.GridFS("images");
+
+Images = new FS.Collection("images", {
+ stores: [imageStore]
+});
+
+
 START_WORTH = 10;
 WORTH_INCREMENT = 5;
 MAX_WORTH = 30;
