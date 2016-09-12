@@ -42,7 +42,7 @@ Template.dashboard.events({
       {
         name: player.name,
 		level: (player.level+1),
-        worth: (player.worth+1),
+        worth: player.worth,
         worth_level: player.worth_level,
 		next_worth: player.next_worth,
         glass: player.glass,
@@ -62,7 +62,7 @@ Template.dashboard.events({
       {
         name: player.name,
 		level: (player.level-1),
-        worth: (player.worth+1),
+        worth: player.worth,
         worth_level: player.worth_level,
 		next_worth: player.next_worth,
         glass: player.glass,
@@ -131,7 +131,9 @@ Template.dashboard.events({
 
   'click #reset-button'(event){
     event.preventDefault();
-
+	if (confirm("Did you accidently press reset again Ryan?") == true) {
+        alert ("NEW GAME!");
+    
     player.worth = START_WORTH;
     player.worth_level = START_WORTH;
 	player.next_worth = START_WORTH;
@@ -152,5 +154,8 @@ Template.dashboard.events({
         level_name: LEVEL_NAMES[0]
       }
     );
+	} else {
+        aket("You boosted bastard!");
+    }
   }
 });
