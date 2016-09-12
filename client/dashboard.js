@@ -17,7 +17,9 @@ Template.dashboard.helpers({
     Players.insert(
       {
         name: Meteor.user().username,
+		level: 0,
         worth: START_WORTH,
+		next_worth: START_WORTH,
         worth_level: START_WORTH,
         glass: 1,
         total_drinks: 0,
@@ -30,6 +32,46 @@ Template.dashboard.helpers({
 });
 
 Template.dashboard.events({
+ 'click #level-up-button'(event){
+    event.preventDefault();
+
+    Players.update(
+      {
+        _id: Players.findOne({name: player.name})['_id']
+      },
+      {
+        name: player.name,
+		level: (player.level+1),
+        worth: (player.worth+1),
+        worth_level: player.worth_level,
+		next_worth: player.next_worth,
+        glass: player.glass,
+        total_drinks : player.total_drinks - 1,
+        level_name: LEVEL_NAMES[(player.worth_level/5)-2]
+      }
+    );
+  },
+  
+ 'click #level-down-button'(event){
+    event.preventDefault();
+
+    Players.update(
+      {
+        _id: Players.findOne({name: player.name})['_id']
+      },
+      {
+        name: player.name,
+		level: (player.level-1),
+        worth: (player.worth+1),
+        worth_level: player.worth_level,
+		next_worth: player.next_worth,
+        glass: player.glass,
+        total_drinks : player.total_drinks - 1,
+        level_name: LEVEL_NAMES[(player.worth_level/5)-2]
+      }
+    );
+  },
+
   'click #up-button'(event){
     event.preventDefault();
 
@@ -39,8 +81,10 @@ Template.dashboard.events({
       },
       {
         name: player.name,
+		level: player.level,
         worth: (player.worth+1),
         worth_level: player.worth_level,
+		next_worth: player.next_worth,
         glass: player.glass,
         total_drinks : player.total_drinks - 1,
         level_name: LEVEL_NAMES[(player.worth_level/5)-2]
@@ -54,18 +98,18 @@ Template.dashboard.events({
     if(player.worth-- == 1){
       if(player.glass == 2){
         if(player.worth_level != MAX_WORTH){
-          player.worth_level += WORTH_INCREMENT;
+          player.worth_level == player.next_worth;
+		  player.next_worth  += WORTH_INCREMENT;
           player.glass = 1;
         }
         else{
           player.glass += 1;
         }
-        player.worth = player.worth_level;
       }
       else{
         player.glass += 1;
-        player.worth = player.worth_level;
       }
+	  player.worth = player.worth_level;
     }
 
     Players.update(
@@ -74,8 +118,10 @@ Template.dashboard.events({
       },
       {
         name: player.name,
+		level: player.level,
         worth: player.worth,
         worth_level: player.worth_level,
+		next_worth: player.next_worth,
         glass: player.glass,
         total_drinks: player.total_drinks + 1,
         level_name: LEVEL_NAMES[(player.worth_level/5)-2]
@@ -88,6 +134,7 @@ Template.dashboard.events({
 
     player.worth = START_WORTH;
     player.worth_level = START_WORTH;
+	player.next_worth = START_WORTH;
     player.glass = 1;
 
     Players.update(
@@ -96,8 +143,10 @@ Template.dashboard.events({
       },
       {
         name: player.name,
+		level: 0,
         worth: player.worth,
         worth_level: player.worth_level,
+		next_worth: player.next_worth,
         glass: player.glass,
         total_drinks : 0,
         level_name: LEVEL_NAMES[0]
