@@ -18,11 +18,13 @@ Template.dashboard.helpers({
       {
         name: Meteor.user().username,
 		level: 0,
+		wins: 0,
         worth: START_WORTH,
 		next_worth: START_WORTH,
         worth_level: START_WORTH,
         glass: 1,
         total_drinks: 0,
+		all_time_drinks: 0,
         level_name: LEVEL_NAMES[0]
       }
     );
@@ -34,61 +36,43 @@ Template.dashboard.helpers({
 Template.dashboard.events({
  'click #level-up-button'(event){
     event.preventDefault();
-
-    Players.update(
-      {
-        _id: Players.findOne({name: player.name})['_id']
-      },
-      {
-        name: player.name,
-		level: (player.level+1),
-        worth: player.worth,
-        worth_level: player.worth_level,
-		next_worth: player.next_worth,
-        glass: player.glass,
-        total_drinks : player.total_drinks - 1,
-        level_name: LEVEL_NAMES[(player.worth_level/5)-2]
-      }
-    );
+	
+	if( player.level < 9 && player.level != "Winner"){
+		player.level += 1;
+	}else if(player.level == 9){
+		player.level = "Winner";
+		player.wins += 1;
+	}
+	Players.update(
+		  {
+			_id: Players.findOne({name: player.name})['_id']
+		  },
+		  {$set:
+			  {
+				  level: player.level,
+				  wins: player.wins
+			  }
+			  
+			
+		  }
+		);
   },
   
+	
  'click #level-down-button'(event){
     event.preventDefault();
-
+	if( player.level > 0 && player.level != "Winner"){
+		player.level -= 1;
+	}
     Players.update(
       {
         _id: Players.findOne({name: player.name})['_id']
       },
-      {
-        name: player.name,
-		level: (player.level-1),
-        worth: player.worth,
-        worth_level: player.worth_level,
-		next_worth: player.next_worth,
-        glass: player.glass,
-        total_drinks : player.total_drinks - 1,
-        level_name: LEVEL_NAMES[(player.worth_level/5)-2]
-      }
-    );
-  },
-
-  'click #up-button'(event){
-    event.preventDefault();
-
-    Players.update(
-      {
-        _id: Players.findOne({name: player.name})['_id']
-      },
-      {
-        name: player.name,
-		level: player.level,
-        worth: (player.worth+1),
-        worth_level: player.worth_level,
-		next_worth: player.next_worth,
-        glass: player.glass,
-        total_drinks : player.total_drinks - 1,
-        level_name: LEVEL_NAMES[(player.worth_level/5)-2]
-      }
+      {$set:
+			  {
+				level: player.level,
+			  }
+	  }
     );
   },
 
@@ -98,8 +82,8 @@ Template.dashboard.events({
     if(player.worth-- == 1){
       if(player.glass == 2){
         if(player.worth_level != MAX_WORTH){
-          player.worth_level == player.next_worth;
 		  player.next_worth  += WORTH_INCREMENT;
+          player.worth_level = player.next_worth;  
           player.glass = 1;
         }
         else{
@@ -116,15 +100,16 @@ Template.dashboard.events({
       {
         _id: Players.findOne({name: player.name})['_id']
       },
-      {
-        name: player.name,
-		level: player.level,
-        worth: player.worth,
-        worth_level: player.worth_level,
-		next_worth: player.next_worth,
-        glass: player.glass,
-        total_drinks: player.total_drinks + 1,
-        level_name: LEVEL_NAMES[(player.worth_level/5)-2]
+      {$set:
+			  {
+				worth: player.worth,
+				worth_level: player.worth_level,
+				next_worth: player.next_worth,
+				glass: player.glass,
+				total_drinks: player.total_drinks + 1,
+				all_time_drinks: player.all_time_drinks + 1,
+				level_name: LEVEL_NAMES[(player.worth_level/5)-2]
+			  }
       }
     );
   },
@@ -143,19 +128,20 @@ Template.dashboard.events({
       {
         _id: Players.findOne({name: player.name})['_id']
       },
-      {
-        name: player.name,
-		level: 0,
-        worth: player.worth,
-        worth_level: player.worth_level,
-		next_worth: player.next_worth,
-        glass: player.glass,
-        total_drinks : 0,
-        level_name: LEVEL_NAMES[0]
+      {$set:
+			  {
+				level: 0,
+				worth: player.worth,
+				worth_level: player.worth_level,
+				next_worth: player.next_worth,
+				glass: player.glass,
+				total_drinks : 0,
+				level_name: LEVEL_NAMES[0]
+			  }
       }
     );
 	} else {
-        aket("You boosted bastard!");
+        alert("You boosted bastard!");
     }
   }
 });

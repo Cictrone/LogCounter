@@ -17,7 +17,12 @@
   <h1>Players</h1>
   <div class="ui centered cards">
     {{#each players}}
-        {{> playerCard}}
+        {{> playerCard}}	
+    {{/each}}
+  </div>
+  <div class="ui centered cards">
+    {{#each players}}
+		{{> playerCard_history}}
     {{/each}}
   </div>
   <div class="ui message">
