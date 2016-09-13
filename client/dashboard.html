@@ -1,7 +1,63 @@
+<template name="game">
+<div class="ui secondary pointing menu">
+    <a href="" class="ui item" id="changeToDashboard" >
+      Home
+    </a>
+	<a class="active item">
+      Game
+    </a>
+	<a href="" class="ui item" id="changeToSummary" >
+      Summary
+    </a>
+    <div class="right menu">
+      <a class="ui item" id="logout">
+        Logout
+      </a>
+    </div>
+  </div>
+  {{#with player}}
+  <h1>NEW GAME</h1>
+  {{/with}}
+</template>
+
+<template name="playerSummary">
+  <div class="ui secondary pointing menu">
+    <a href="" class="ui item" id="changeToDashboard" >
+      Home
+    </a>
+	<a href="" class="ui item" id="changeToGame">
+      Game
+    </a>
+	<a class="active item" >
+      Summary
+    </a>
+    <div class="right menu">
+      <a class="ui item" id="logout">
+        Logout
+      </a>
+    </div>
+  </div>
+  <h1>Players</h1>
+  <div class="ui centered cards">
+    {{#each players}}
+		<div class="ui centered cards">
+		{{> playerCard}}	
+		{{> playerCard_history}}
+		</div>
+    {{/each}}
+  </div>
+</template>
+
 <template name="dashboard">
   <div class="ui secondary pointing menu">
-    <a class="active item">
+    <a class="active item" >
       Home
+    </a>
+	<a href="" class="ui item" id="changeToGame">
+      Game
+    </a>
+	<a href="" class="ui item" id="changeToSummary" >
+      Summary
     </a>
     <div class="right menu">
       <a class="ui item" id="logout">
@@ -41,3 +97,5 @@
     </div>
   {{/with}}
 </template>
+
+

@@ -6,30 +6,12 @@
 <body>
   <div style="text-align: center">
     {{#if currentUser}}
-      {{> dashboard}}
+     {{> Template.dynamic template=promptPage}}
     {{else}}
       {{> Template.dynamic template=promptPage}}
     {{/if}}
   </div>
 </body>
-
-<template name="playerSummary">
-  <h1>Players</h1>
-  <div class="ui centered cards">
-    {{#each players}}
-        {{> playerCard}}	
-    {{/each}}
-  </div>
-  <div class="ui centered cards">
-    {{#each players}}
-		{{> playerCard_history}}
-    {{/each}}
-  </div>
-  <div class="ui message">
-    Want to Login? <a href="" id="changeToLogin">Login</a>
-  </div>
-</template>
-
 
 <template name="register">
   <div class="ui grid">
@@ -98,11 +80,23 @@
         <div class="ui message">
           New Here? <a href="" id="changeToRegister">Register</a>
         </div>
-        <div class="ui message">
-          Looking for a Game Summary? <a href="" id="changeToSummary">Summary</a>
-        </div>
       </div>
       <div class="column"></div>
+    </div>
+  </div>
+</template>
+<template name="newgame">
+  <div class="ui secondary pointing menu">
+    <a class="active item">
+      Home
+    </a>
+	<a href="" class="ui item" id="changeToNewGame">
+      New Game
+    </a>
+    <div class="right menu">
+      <a class="ui item" id="logout">
+        Logout
+      </a>
     </div>
   </div>
 </template>
