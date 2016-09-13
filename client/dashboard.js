@@ -1,13 +1,60 @@
 import { Template } from 'meteor/templating';
 
+Template.playerSummary.helpers({
+   players(){
+    return Players.find({}).fetch();
+  },
+  player(){
+	
+    player = Players.findOne({name: Meteor.user().username});
+    if (player){
+      return player;
+	}
+  }
+});
 
-Template.dashboard.events({
+Template.playerSummary.events({
+    'click #changeToDashboard': function(event){
+		event.preventDefault();
+		Session.set('prompt', 'dashboard');
+    },
+	   
     'click #logout': function(event){
         event.preventDefault();
         Meteor.logout();
+		Session.set('prompt', 'login');
+    },
+    'click #changeToGame': function(event){
+		event.preventDefault();
+		Session.set('prompt', 'game');
     }
 });
 
+Template.game.events({
+    'click #changeToDashboard': function(event){
+		event.preventDefault();
+		Session.set('prompt', 'dashboard');
+    },
+	   
+    'click #logout': function(event){
+        event.preventDefault();
+        Meteor.logout();
+		Session.set('prompt', 'login');
+    },
+    'click #changeToSummary': function(event){
+      event.preventDefault();
+      Session.set('prompt', 'playerSummary');
+    }
+});
+Template.game.helpers({
+  player(){
+    player = Players.findOne({name: Meteor.user().username});
+    if (player){
+      return player;
+	}
+  }
+ });
+ 
 Template.dashboard.helpers({
   player(){
     player = Players.findOne({name: Meteor.user().username});
@@ -34,6 +81,21 @@ Template.dashboard.helpers({
 });
 
 Template.dashboard.events({
+	
+	'click #logout': function(event){
+        event.preventDefault();
+        Meteor.logout();
+		Session.set('prompt', 'login');
+    },  
+    'click #changeToGame': function(event){
+		event.preventDefault();
+		Session.set('prompt', 'game');
+    },
+    'click #changeToSummary': function(event){
+      event.preventDefault();
+      Session.set('prompt', 'playerSummary');
+    },
+	
  'click #level-up-button'(event){
     event.preventDefault();
 	
@@ -44,18 +106,16 @@ Template.dashboard.events({
 		player.wins += 1;
 	}
 	Players.update(
+	  {
+		_id: Players.findOne({name: player.name})['_id']
+	  },
+	  {$set:
 		  {
-			_id: Players.findOne({name: player.name})['_id']
-		  },
-		  {$set:
-			  {
-				  level: player.level,
-				  wins: player.wins
-			  }
-			  
-			
-		  }
-		);
+			  level: player.level,
+			  wins: player.wins
+		  }			
+	  }
+	);
   },
   
 	
@@ -69,9 +129,9 @@ Template.dashboard.events({
         _id: Players.findOne({name: player.name})['_id']
       },
       {$set:
-			  {
-				level: player.level,
-			  }
+		  {
+			level: player.level,
+		  }
 	  }
     );
   },

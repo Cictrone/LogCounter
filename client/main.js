@@ -27,20 +27,6 @@ Template.body.helpers({
   }
 });
 
-Template.playerSummary.helpers({
-  players(){
-    return Players.find({}).fetch();
-  }
-});
-
-Template.playerSummary.events({
-  'click #changeToLogin': function(event){
-    event.preventDefault();
-    Session.set('prompt', 'login');
-  },
-
-});
-
 Template.register.events({
     'submit form': function(event) {
         event.preventDefault();
@@ -63,13 +49,10 @@ Template.login.events({
         var usernameVar = event.target.loginUsername.value;
         var passwordVar = event.target.loginPassword.value;
         Meteor.loginWithPassword(usernameVar, passwordVar);
+		Session.set('prompt', 'dashboard');
     },
     'click #changeToRegister': function(event){
       event.preventDefault();
       Session.set('prompt', 'register');
-    },
-    'click #changeToSummary': function(event){
-      event.preventDefault();
-      Session.set('prompt', 'playerSummary');
     }
 });
