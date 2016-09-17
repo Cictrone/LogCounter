@@ -16,9 +16,9 @@ Template.game.helpers({
 
 Template.game.events({
 	'click #newgame': function(event){
-        event.preventDefault();
-		game = Games.findOne({player_list: player.name});
-		player = Players.findOne({name: Meteor.user().username})['name'];
+    event.preventDefault();
+    player = Players.findOne({name: Meteor.user().username})['name'];
+		game = Games.findOne({player_list: player});
 		if(game){
 			Games.update(
 				{_id: game._id},
