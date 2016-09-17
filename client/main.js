@@ -12,18 +12,13 @@ Images = new FS.Collection("images", {
 });
 
 // probably belongs in Meteor.startup - server side
-Games.update(
-  {
-    _id : 'null'
-  },
+Games.insert(
   {
     _id : 'null',
     numPlayers: 0,
     player_list: []
-  },
-  {
-    upsert: true
   }
+
 );
 
 
@@ -46,29 +41,29 @@ Template.body.helpers({
 
 Template.register.events({
     'submit form': function(event) {
-        event.preventDefault();
-        var usernameVar = event.target.registerUsername.value;
-        var passwordVar = event.target.registerPassword.value;
-        Accounts.createUser({
-            username: usernameVar,
-            password: passwordVar
+      event.preventDefault();
+      var usernameVar = event.target.registerUsername.value;
+      var passwordVar = event.target.registerPassword.value;
+      Accounts.createUser({
+          username: usernameVar,
+          password: passwordVar
+      });
+      if(!Players.findOne({name: usernameVar})){
+        Players.insert({
+          name: usernameVar,
+          isingame: 0,
+          game_id: 'null',
+          level: 0,
+          wins: 0,
+          worth: START_WORTH,
+          next_worth: START_WORTH,
+          worth_level: START_WORTH,
+          glass: 1,
+          total_drinks: 0,
+          all_time_drinks: 0,
+          level_name: LEVEL_NAMES[0]
         });
-	    Players.insert(
-        {
-			name: usernameVar,
-			isingame: 0,
-			game_id: 'null',
-			level: 0,
-			wins: 0,
-			worth: START_WORTH,
-			next_worth: START_WORTH,
-			worth_level: START_WORTH,
-			glass: 1,
-			total_drinks: 0,
-			all_time_drinks: 0,
-			level_name: LEVEL_NAMES[0]
-        }
-		);
+      }
 		Games.update({
 			_id: Games.findOne({_id: 'null'})['_id']
 		},
@@ -77,7 +72,7 @@ Template.register.events({
 			player_list : usernameVar
 		  }
 		});
-		Session.set('prompt', 'login');
+		Session.set('prompt', 'dashboard');
 
     },
     'click #changeToLogin': function(event){
