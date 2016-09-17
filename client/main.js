@@ -2,13 +2,21 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 
 Players = new Mongo.Collection('players');
+Games = new Mongo.Collection('games');
+Articles = new Mongo.Collection('articles');
 
 var imageStore = new FS.Store.GridFS("images");
 
 Images = new FS.Collection("images", {
  stores: [imageStore]
 });
-
+Games.insert(
+	{
+		_id : 'null',
+		numPlayers: 0,
+		player_list: []
+	}
+);
 
 START_WORTH = 10;
 WORTH_INCREMENT = 5;
@@ -27,20 +35,6 @@ Template.body.helpers({
   }
 });
 
-Template.playerSummary.helpers({
-  players(){
-    return Players.find({}).fetch();
-  }
-});
-
-Template.playerSummary.events({
-  'click #changeToLogin': function(event){
-    event.preventDefault();
-    Session.set('prompt', 'login');
-  },
-
-});
-
 Template.register.events({
     'submit form': function(event) {
         event.preventDefault();
@@ -50,6 +44,32 @@ Template.register.events({
             username: usernameVar,
             password: passwordVar
         });
+	    Players.insert(
+        {
+			name: usernameVar,
+			isingame: 0,
+			game_id: 'null',
+			level: 0,
+			wins: 0,
+			worth: START_WORTH,
+			next_worth: START_WORTH,
+			worth_level: START_WORTH,
+			glass: 1,
+			total_drinks: 0,
+			all_time_drinks: 0,
+			level_name: LEVEL_NAMES[0]
+        }
+		);
+		Games.update({
+			_id: Games.findOne({_id: 'null'})['_id']
+		},
+		{$push:
+		  {
+			player_list : usernameVar
+		  }
+		});
+		Session.set('prompt', 'login');
+
     },
     'click #changeToLogin': function(event){
       event.preventDefault();
@@ -63,13 +83,10 @@ Template.login.events({
         var usernameVar = event.target.loginUsername.value;
         var passwordVar = event.target.loginPassword.value;
         Meteor.loginWithPassword(usernameVar, passwordVar);
+		Session.set('prompt', 'dashboard');
     },
     'click #changeToRegister': function(event){
       event.preventDefault();
       Session.set('prompt', 'register');
-    },
-    'click #changeToSummary': function(event){
-      event.preventDefault();
-      Session.set('prompt', 'playerSummary');
     }
 });

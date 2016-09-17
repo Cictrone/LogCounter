@@ -1,43 +1,72 @@
-<template name="dashboard">
-  <div class="ui secondary pointing menu">
-    <a class="active item">
-      Home
-    </a>
-    <div class="right menu">
-      <a class="ui item" id="logout">
-        Logout
-      </a>
-    </div>
+
+<template name="gamesSummary">
+{{>linkbar}}
+  <h1>Games</h1>
+  <div class="ui centered cards">
+  	<div  class = "ui grid">
+	    <div class="one column row">
+				<div class="column">
+					{{#each games}}
+						<form >
+							ID:{{_id}} Num:{{numPlayers}} Players:{{player_list}} 
+							<input type="hidden" name='gameID' value={{_id}}>
+							<input type="submit" value="Join Game" class="ui teal submit button">	
+							<br />
+						</form>
+						<br />
+					{{/each}}
+				</div>
+			</div>
+	</div>
   </div>
+</template>
+<template name="playerSummary">
+{{>linkbar}}
+  <h1>Players</h1>
+  <div class="ui centered cards">
+    {{#each players}}
+		<div class="ui centered cards">
+		{{> playerCard}}	
+		{{> playerCard_history}}
+		</div>
+    {{/each}}
+  </div>
+</template>
+<template name="dashboard">
+{{>linkbar}}
+  <div class="ui centered cards">
+	  {{#with player}}
+		<div class="ui centered cards">
+		  {{> playerCard}}
+		  {{> playerCard_history}}
+		</div>
+	  {{/with}}
+  </div> <br />
 
-  {{#with player}}
-    {{> playerCard}}
-    <div class="ui buttons">
-      <div class="ui labeled primary button" id="level-up-button" tabindex="0">
-        <div class="ui green button">
-          <i class="bar icon"></i>I AM GOD REBORN!
-        </div>
-      </div>
-      <div class="or">
-      </div>
-      <div class="ui labeled primary button" id="level-down-button" tabindex="0">
-        <div class="ui red button">
-          <i class="bar icon"></i> Someone is a douche!
-        </div>
-      </div>
-    </div><br /><br />
-    <div class="ui buttons">
-         <div class="ui labeled primary button" id="down-button" tabindex="0">
-        <div class="ui green button">
-          <i class="bar icon"></i> Drink it Down!
-        </div>
-      </div>
-    </div><br /><br />
-
-    <div class="ui labeled primary button" id="reset-button" tabindex="0">
-      <div class="ui yellow button">
-        <i class="backward icon"></i> Reset!
-      </div>
-    </div>
-  {{/with}}
+</template>
+<template name="game_dash">
+{{>linkbar}}
+	{{>game}}
+</template>
+<template name="article_dash">
+	{{>linkbar}}
+	<form >
+	<div class="ui left icon input">
+		<input type="text" name="article_text" placeholder="Text">
+	</div>
+	<input type="submit" value="Decree" class="ui teal submit button">
+	</form>
+	
+	<div class="ui centered cards">
+		<div  class = "ui grid">
+			<div class="one column row">
+				<div class="column">
+					{{#each articles}}
+							ID:{{_id}} Num:{{numPlayers}} Players:{{player_list}} 
+							<br /><br />
+					{{/each}}
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
