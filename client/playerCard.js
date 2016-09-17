@@ -29,12 +29,15 @@ Template.playerCard.events({
             var imagesURL = {
               "profile.image": fileObj._id
             };
+            // should delete old image
             Meteor.users.update(userId, {$set: imagesURL});
           }
         });
      });
    },
    'click #changePic'(event){
-     $('#myPicInput').click();
+     if(Meteor.userId()){
+       $('#myPicInput').click();
+     }
    }
 });
