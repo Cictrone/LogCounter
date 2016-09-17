@@ -26,20 +26,17 @@ Template.game.events({
 				{$inc : {numPlayers  : -1}}
 			)
 		}
-		Games.insert(
-		  {
+		Games.insert({
 			  numPlayers: 1,
 			  player_list: [player],
 			  finished: 0,
 			  winner: "",
-		  }
-		),
-
+		}),
 		Players.update(
 			{_id: Players.findOne({name: player})['_id']},
 			{$set:{game_id: (Games.findOne({player_list: player}))['_id']}}
 		)
-	},
+  },
 	'submit form': function(event) {
         event.preventDefault();
         var gameIDVar = event.target.gameID.value;
