@@ -53,18 +53,17 @@ Template.register.events({
           all_time_drinks: 0,
           level_name: LEVEL_NAMES[0]
         });
+        Games.update({
+          _id: Games.findOne({_id: 'null'})['_id']
+        },
+        {$push:
+          {
+            player_list : usernameVar
+          }
+        });
+        Session.set('prompt', 'dashboard');
       }
-		Games.update({
-			_id: Games.findOne({_id: 'null'})['_id']
-		},
-		{$push:
-		  {
-			player_list : usernameVar
-		  }
-		});
-    if(Meteor.user()){
-      Session.set('prompt', 'dashboard');
-    }
+    
 
     },
     'click #changeToLogin': function(event){
