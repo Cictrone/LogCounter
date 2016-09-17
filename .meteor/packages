@@ -40,3 +40,4 @@ session
 cfs:standard-packages
 cfs:gridfs
 autopublish
+chrismbeckett:toastr
