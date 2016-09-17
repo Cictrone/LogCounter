@@ -80,10 +80,10 @@ Template.register.events({
           }
         });
         Session.set('prompt', 'dashboard');
-        toastr.success('Account Created!', 'Your account has been created!')
+        toastr.success('Your account has been created!', 'Account Created!')
       }
       else{
-        toastr.error('Account Exists!', 'The given username is already an account on the system.')
+        toastr.error('The given username is already an account on the system.', 'Account Exists!')
       }
 
 
@@ -104,7 +104,7 @@ Template.login.events({
             Session.set('prompt', 'dashboard');
           }
           else{
-            toastr.error("Login Failed!", "Username or Password is incorrect.")
+            toastr.error("Username or Password is incorrect.", "Login Failed!")
           }
         });
     },
