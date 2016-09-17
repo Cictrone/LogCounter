@@ -11,7 +11,7 @@ Images = new FS.Collection("images", {
  stores: [imageStore]
 });
 
-
+// probably belongs in Meteor.startup - server side
 Games.update(
   {
     _id : 'null'
