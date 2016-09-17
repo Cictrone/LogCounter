@@ -62,7 +62,9 @@ Template.register.events({
 			player_list : usernameVar
 		  }
 		});
-		Session.set('prompt', 'dashboard');
+    if(Meteor.user()){
+      Session.set('prompt', 'dashboard');
+    }
 
     },
     'click #changeToLogin': function(event){
