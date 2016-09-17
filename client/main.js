@@ -18,6 +18,24 @@ MAX_WORTH = 30;
 
 LEVEL_NAMES = ["N00B", "Casual", "Average", "Skilled", "Master"];
 
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": true,
+  "progressBar": true,
+  "positionClass": "toast-bottom-full-width",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "200",
+  "timeOut": "2500",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+};
+
 
 import './main.html';
 
@@ -62,8 +80,12 @@ Template.register.events({
           }
         });
         Session.set('prompt', 'dashboard');
+        toastr.success('Account Created!', 'Your account has been created!')
       }
-    
+      else{
+        toastr.error('Account Exists!', 'The given username is already an account on the system.')
+      }
+
 
     },
     'click #changeToLogin': function(event){
@@ -80,6 +102,9 @@ Template.login.events({
         Meteor.loginWithPassword(usernameVar, passwordVar, function(){
           if(Meteor.user()){
             Session.set('prompt', 'dashboard');
+          }
+          else{
+            toastr.error("Login Failed!", "Username or Password is incorrect.")
           }
         });
     },
