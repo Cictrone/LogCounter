@@ -18,37 +18,35 @@
     <div class="three column row">
       <div class="column"></div>
       <div class="column">
-        <h2 class="ui image header">
-          <div class="content">
-            Register
-          </div>
-        </h2>
-        <form class="ui large form">
-          <div class="ui stacked secondary segment">
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="user icon"></i>
-                <input type="text" name="registerUsername" placeholder="Username">
-              </div>
-            </div>
-            <div class="field">
-              <div class="ui left icon input">
-                <i class="lock icon"></i>
-                <input type="password" name="registerPassword" placeholder="Password">
-              </div>
-            </div>
-            <input type="submit" value="Register" class="ui teal submit button">
-          </div>
-        </form>
-        <div class="ui message">
-          Not New? <a href="" id="changeToLogin">Login</a>
+      </div><h2 class="ui image header">
+        <div class="content">
+          Register
         </div>
+      </h2>
+      <form class="ui large form">
+        <div class="ui stacked secondary segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              <input type="text" name="registerUsername" placeholder="Username">
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              <input type="password" name="registerPassword" placeholder="Password">
+            </div>
+          </div>
+          <input type="submit" value="Register" class="ui teal submit button">
+        </div>
+      </form>
+      <div class="ui message">
+        Not New? <a href="" id="changeToLogin">Login</a>
       </div>
-      <div class="column"></div>
     </div>
+    <div class="column"></div>
   </div>
 </template>
-
 
 <template name="login">
   <div class="ui grid">
@@ -78,13 +76,15 @@
           </div>
         </form>
         <div class="ui message">
-          New Here? <a href="" id="changeToRegister">Register</a>
+          New Here?
+          <a href="" id="changeToRegister">Register</a>
         </div>
       </div>
       <div class="column"></div>
     </div>
   </div>
 </template>
+
 <template name="newgame">
   <div class="ui secondary pointing menu">
     <a class="active item">

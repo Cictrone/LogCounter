@@ -1,6 +1,6 @@
 
 <template name="gamesSummary">
-{{>linkbar}}
+  {{>linkbar}}
   <h1>Games</h1>
   <div class="ui centered cards">
   	<div  class = "ui grid">
@@ -20,8 +20,9 @@
 	</div>
   </div>
 </template>
+
 <template name="playerSummary">
-{{>linkbar}}
+  {{>linkbar}}
   <h1>Players</h1>
   <div class="ui centered cards">
     {{#each players}}
@@ -32,8 +33,9 @@
     {{/each}}
   </div>
 </template>
+
 <template name="dashboard">
-{{>linkbar}}
+  {{>linkbar}}
   <br />
   <div class="ui centered cards">
 	  {{#with player}}
@@ -43,12 +45,13 @@
 		</div>
 	  {{/with}}
   </div> <br />
-
 </template>
+
 <template name="game_dash">
-{{>linkbar}}
+  {{>linkbar}}
 	{{>game}}
 </template>
+
 <template name="article_dash">
 	{{>linkbar}}
 	<form >
