@@ -10,13 +10,22 @@ var imageStore = new FS.Store.GridFS("images");
 Images = new FS.Collection("images", {
  stores: [imageStore]
 });
-Games.insert(
-	{
-		_id : 'null',
-		numPlayers: 0,
-		player_list: []
-	}
+
+
+Games.update(
+  {
+    _id : 'null'
+  },
+  {
+    _id : 'null',
+    numPlayers: 0,
+    player_list: []
+  },
+  {
+    upsert: true
+  }
 );
+
 
 START_WORTH = 10;
 WORTH_INCREMENT = 5;
