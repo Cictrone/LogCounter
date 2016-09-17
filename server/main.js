@@ -11,5 +11,14 @@ Images = new FS.Collection("images", {
 });
 
 Meteor.startup(() => {
-  // do stuffs?
+  if(!Games.findOne({_id: 'null'})){
+    Games.insert(
+      {
+        _id : 'null',
+        numPlayers: 0,
+        player_list: []
+      }
+
+    );
+  }
 });

@@ -11,16 +11,6 @@ Images = new FS.Collection("images", {
  stores: [imageStore]
 });
 
-// probably belongs in Meteor.startup - server side
-Games.insert(
-  {
-    _id : 'null',
-    numPlayers: 0,
-    player_list: []
-  }
-
-);
-
 
 START_WORTH = 10;
 WORTH_INCREMENT = 5;
