@@ -47,10 +47,10 @@ Template.playerCard_buttons.helpers({
 });
 
 Template.playerCard_buttons.events({
-	
+
  'click #level-up-button'(event){
     event.preventDefault();
-	
+
 	if( player.level < 9 && player.level != "Winner"){
 		player.level += 1;
 	}else if(player.level == 9){
@@ -65,7 +65,7 @@ Template.playerCard_buttons.events({
 		  {
 			  level: player.level,
 			  wins: player.wins
-		  }			
+		  }
 	  }
 	);
   },
@@ -92,7 +92,7 @@ Template.playerCard_buttons.events({
       if(player.glass == 2){
         if(player.worth_level != MAX_WORTH){
 		  player.next_worth  += WORTH_INCREMENT;
-          player.worth_level = player.next_worth;  
+          player.worth_level = player.next_worth;
           player.glass = 1;
         }
         else{
@@ -125,11 +125,10 @@ Template.playerCard_buttons.events({
   'click #reset-button'(event){
     event.preventDefault();
 	if (confirm("Did you accidently press reset again Ryan?") == true) {
-        alert ("NEW GAME!");
-    
+
     player.worth = START_WORTH;
     player.worth_level = START_WORTH;
-	player.next_worth = START_WORTH;
+    player.next_worth = START_WORTH;
     player.glass = 1;
 
     Players.update(
@@ -153,4 +152,3 @@ Template.playerCard_buttons.events({
     }
   }
   });
-  

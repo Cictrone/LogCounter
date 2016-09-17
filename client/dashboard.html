@@ -7,12 +7,12 @@
 	    <div class="one column row">
 				<div class="column">
 					{{#each games}}
-						<form >
-							ID:{{_id}} Num:{{numPlayers}} Players:{{player_list}} 
-							<input type="hidden" name='gameID' value={{_id}}>
-							<input type="submit" value="Join Game" class="ui teal submit button">	
-							<br />
-						</form>
+    					<form >
+    						ID:{{_id}} Num:{{numPlayers}} Players:{{player_list}}
+    						<input type="hidden" name='gameID' value={{_id}}>
+    						<input type="submit" value="Join Game" class="ui teal submit button">
+    						<br />
+    					</form>
 						<br />
 					{{/each}}
 				</div>
@@ -26,7 +26,7 @@
   <div class="ui centered cards">
     {{#each players}}
 		<div class="ui centered cards">
-		{{> playerCard}}	
+		{{> playerCard}}
 		{{> playerCard_history}}
 		</div>
     {{/each}}
@@ -56,13 +56,13 @@
 	</div>
 	<input type="submit" value="Decree" class="ui teal submit button">
 	</form>
-	
+
 	<div class="ui centered cards">
 		<div  class = "ui grid">
 			<div class="one column row">
 				<div class="column">
 					{{#each articles}}
-							ID:{{_id}} Num:{{numPlayers}} Players:{{player_list}} 
+							ID:{{_id}} Num:{{numPlayers}} Players:{{player_list}}
 							<br /><br />
 					{{/each}}
 				</div>

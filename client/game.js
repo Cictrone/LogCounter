@@ -1,19 +1,22 @@
 Template.game.helpers({
   players(){
 	  player = Players.findOne({name: Meteor.user().username});
-	  if(player.game_id != 'null'){   
+	  if(player.game_id != 'null'){
 		return Players.find({game_id : player.game_id}).fetch();
 	}
   },
   player(){return Players.findOne({name: Meteor.user().username});},
   game(){
 	  return Games.findOne({_id : player.game_id});
-	}
+	},
+  isInGame(){
+    return Players.findOne({name: Meteor.user().username}).game_id != "null";
+  }
 });
 
 Template.game.events({
 	'click #newgame': function(event){
-        event.preventDefault();	
+        event.preventDefault();
 		game = Games.findOne({player_list: player.name});
 		player = Players.findOne({name: Meteor.user().username})['name'];
 		if(game){
@@ -31,7 +34,7 @@ Template.game.events({
 			  winner: "",
 		  }
 		),
-		
+
 		Players.update(
 			{_id: Players.findOne({name: player})['_id']},
 			{$set:{game_id: (Games.findOne({player_list: player}))['_id']}}
@@ -62,4 +65,3 @@ Template.game.events({
 		}
     }
 });
-
