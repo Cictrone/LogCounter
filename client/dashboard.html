@@ -54,23 +54,5 @@
 
 <template name="article_dash">
 	{{>linkbar}}
-	<form >
-	<div class="ui left icon input">
-		<input type="text" name="article_text" placeholder="Text">
-	</div>
-	<input type="submit" value="Decree" class="ui teal submit button">
-	</form>
-
-	<div class="ui centered cards">
-		<div  class = "ui grid">
-			<div class="one column row">
-				<div class="column">
-					{{#each articles}}
-							ID:{{_id}} Num:{{numPlayers}} Players:{{player_list}}
-							<br /><br />
-					{{/each}}
-				</div>
-			</div>
-		</div>
-	</div>
+  {{>articles}}
 </template>
