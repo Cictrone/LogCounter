@@ -37,9 +37,9 @@ Template.gamesSummary.helpers({
 });
 Template.gamesSummary.events({
 	'submit form': function(event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        var gameIDVar = event.target.gameID.value;
+    var gameIDVar = event.target.gameID.value;
 		player = Players.findOne({name: Meteor.user().username});
 		game = Games.findOne({player_list: player.name});
 		if(game){
@@ -60,7 +60,7 @@ Template.gamesSummary.events({
 				{$set:{game_id: (Games.findOne({player_list: player.name}))['_id']}}
 			)
 		}
-    },
+  },
 });
 
 Template.playerSummary.helpers({
@@ -73,7 +73,9 @@ Template.playerSummary.events({
 
 
 Template.dashboard.helpers({
-  player(){return Players.findOne({name: Meteor.user().username});}
+  player(){
+    return Players.findOne({name: Meteor.user().username});
+  }
 });
 Template.dashboard.events({
 });
