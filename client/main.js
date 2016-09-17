@@ -63,7 +63,6 @@ Template.register.events({
 		  }
 		});
 		Session.set('prompt', 'dashboard');
-
     },
     'click #changeToLogin': function(event){
       event.preventDefault();
