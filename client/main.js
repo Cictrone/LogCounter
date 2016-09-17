@@ -77,7 +77,9 @@ Template.login.events({
         var usernameVar = event.target.loginUsername.value;
         var passwordVar = event.target.loginPassword.value;
         Meteor.loginWithPassword(usernameVar, passwordVar, function(){
-          Session.set('prompt', 'dashboard');
+          if(Meteor.user()){
+            Session.set('prompt', 'dashboard');
+          }
         });
     },
     'click #changeToRegister': function(event){
