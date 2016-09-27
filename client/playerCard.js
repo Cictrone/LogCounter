@@ -6,11 +6,11 @@ Template.playerCard.helpers({
     return "card";
   },
   profilePic(){
-    let _user = Meteor.users.findOne({'username': this.name});
+    let _user = Meteor.users.findOne({'username': this.username});
     return Images.findOne({'_id': _user.profile.image});
   },
   hasProfilePic(){
-    let _user = Meteor.users.findOne({'username': this.name});
+    let _user = Meteor.users.findOne({'username': this.username});
     if(_user.profile){
       return true;
     }
@@ -43,7 +43,7 @@ Template.playerCard.events({
 });
 
 Template.playerCard_buttons.helpers({
-  player(){return Players.findOne({name: Meteor.user().username});}
+  player(){return Players.findOne({username: Meteor.user().username});}
 });
 
 Template.playerCard_buttons.events({
@@ -59,7 +59,7 @@ Template.playerCard_buttons.events({
 	}
 	Players.update(
 	  {
-		_id: Players.findOne({name: player.name})['_id']
+		_id: Players.findOne({username: player.username})['_id']
 	  },
 	  {$set:
 		  {
@@ -76,7 +76,7 @@ Template.playerCard_buttons.events({
 	}
     Players.update(
       {
-        _id: Players.findOne({name: player.name})['_id']
+        _id: Players.findOne({username: player.username})['_id']
       },
       {$set:
 		  {
@@ -107,7 +107,7 @@ Template.playerCard_buttons.events({
     if(player.game_id != 0) {player.all_time_drink+=1;}
     Players.update(
       {
-        _id: Players.findOne({name: player.name})['_id']
+        _id: Players.findOne({username: player.username})['_id']
       },
       {$set:
 			  {
@@ -133,7 +133,7 @@ Template.playerCard_buttons.events({
 
     Players.update(
       {
-        _id: Players.findOne({name: player.name})['_id']
+        _id: Players.findOne({username: player.username})['_id']
       },
       {$set:
 			  {

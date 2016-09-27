@@ -61,9 +61,9 @@ Template.register.events({
           username: usernameVar,
           password: passwordVar
       });
-      if(!Players.findOne({name: usernameVar})){
+      if(!Players.findOne({username: usernameVar})){
         Players.insert({
-          name: usernameVar,
+          username: usernameVar,
           isingame: 0,
           game_id: 'null',
           level: 0,

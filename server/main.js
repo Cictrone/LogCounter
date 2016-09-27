@@ -24,7 +24,7 @@ Meteor.startup(() => {
   Players.update(
     {_id : 'null'},
     {$set:{
-      name: "Admin",
+      username: "Admin",
       isAdmin: 0,
       isingame: 0,
       game_id: 'null',

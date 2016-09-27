@@ -1,9 +1,21 @@
+Template.article_details.helpers({
+  player(){return Players.findOne({username: Meteor.user().username});},
+  articles(){return Articles.find({}).fetch();},
+});
+
 Template.articles.helpers({
-  player(){return Players.findOne({name: Meteor.user().username});},
-  articles(){return Articles.find({}).fetch();}
+  player(){return Players.findOne({username: Meteor.user().username});},
+  articles(){return Articles.find({}).fetch();},
+  has_voted(id){return Articles.findOne({_id : id}).voted.includes(Players.findOne({username:Meteor.user().username}).username);}
 });
 
 Template.articles.events({
+  'click #viewArticle'(event){
+    event.preventDefault();
+    Session.set('prompt', 'article_details');
+
+  },
+
 	'submit #new_article': function(event) {
     event.preventDefault();
     let text = event.target.article_text.value;
@@ -24,41 +36,43 @@ Template.articles.events({
       );
     },
     'submit #vote_yes': function(event){
+      event.preventDefault();
       id = event.target.articleID.value;
       article =  Articles.findOne({_id : id});
-      player = Players.findOne({name: Meteor.user().username});
+      player = Players.findOne({username: Meteor.user().username});
       is_approved =0;
-      if(article.yes_votes > (Players.find({}).count()/2)){
+      if(article.yes_votes+1 > (Players.find({}).count()/2)){
         is_approved = 1;
       }
-      alert(player.name);alert( article.yes_votes);
-      alert(article.voted);
-      if(!Articles.findOne({voted : player.name}) ){
+      if(!article.voted.includes(player.username) ){
         Articles.update(
           {_id : id},
           {$set:{
             is_approved: is_approved,
             yes_votes: article.yes_votes+1,
           },
-          $push: {voted : player.name}
+          $push: {voted : player.username}
           });
-          toastr.success("You have voted AYE!");
-      }else{toastr.error("You have already Voted on This.");}
+        toastr.success("You have voted AYE!","");
+      }else{toastr.error("You have already Voted on This.","");}
     },
-    'click #no': function(event){
-      Articles.update(
-          {_id : id},
-          {$set:{
-            number: Articles.find({}).count() + 1,
-            paragraph: 1,
-            line: 1,
-            text: text,
-            is_approved: 0,
-            yes_votes: 0,
-            no_votes: 0,
-            voted: []
-          }},
-          {upsert: 'true'}
-        );
+    'submit #vote_no': function(event){
+      event.preventDefault();
+      id = event.target.articleID.value;
+      article =  Articles.findOne({_id : id});
+      player = Players.findOne({username: Meteor.user().username});
+      if(!article.voted.includes(player.username) ){
+        if(article.no_votes + 1 > (Players.find({}).count()/2)){
+          Articles.remove({_id : id});
+        }else{
+          Articles.update(
+            {_id : id},
+            {$set:{
+              no_votes: article.no_votes+1,
+            },
+            $push: {voted : player.username}});
+        }
+        toastr.success("You have voted NAY!","");
+      }else{toastr.error("You have already Voted on This.","");}
     }
 });

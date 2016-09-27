@@ -1,26 +1,43 @@
 <template name="articles">
   <form id="new_article" >
     <div class="ui left icon input">
-      <input type="text" name="article_text" placeholder="Text">
+      <input type="text" username="article_text" placeholder="Text">
     </div>
     <input type="submit" value="Decree" class="ui teal submit button">
   </form>
-        {{#each articles}}
-        <div class = "row">
-            <div class="column">
-          {{number}}.{{paragraph}}.{{line}} : {{text}}
-            </div>
-            {{#if is_approved}}
-            {{else}}
-            <form id="vote_yes">
-              <input type="hidden" id="articleID" value= {{_id}}>
-              <input type="submit" class="ui green submit button"  value="Aye!" />
-            </form>
-            <form id="vote_no">
-              <input type="hidden" id="articleID" value= {{_id}}/>
-              <input type="submit" class="ui red submit button"  value="NAY!" />
-            </form>
-            {{/if}}
-          </div>
-          {{/each}}
+  <br />
+  <div class= "ui centered grid "  style="background-color:grey">
+    {{#each articles}}
+      <div class = "row"  style="border:5px solid blue; padding:1px "></div>
+      <div class="column" style="font-size:20px; border-style:solid" >
+      <a href="#" id="viewArticle">{{number}}.{{paragraph}}.{{line}} </a>
+      </div>
+        {{#if is_approved}}
+        <div class="column">Approved.</div>
+        <div class="column"></div>
+        {{else}}
+        {{#if has_voted (_id) }}
+        <div class="column"> Pending....</div>
+        <div class="column"></div>
+        {{else}}
+        <div class="column">
+          <form id="vote_yes">
+            <input type="hidden" id="articleID" value= {{_id}}>
+            <input type="submit" class="ui green submit button"  value="Aye!" />
+          </form>
+        </div>
+        <div class="column">
+          <form id="vote_no">
+            <input type="hidden" id="articleID" value= {{_id}}>
+            <input type="submit" class="ui red submit button"  value="NAY!" />
+          </form>
+        </div>
+        {{/if}}
+        {{/if}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="article_details">
+  {{>linkbar}}
 </template>
