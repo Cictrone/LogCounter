@@ -1,20 +1,26 @@
 <template name="articles">
-  <form >
+  <form id="new_article" >
     <div class="ui left icon input">
       <input type="text" name="article_text" placeholder="Text">
     </div>
     <input type="submit" value="Decree" class="ui teal submit button">
   </form>
-  <div class="ui centered cards">
-    <div  class = "ui grid">
-      <div class="one column row">
-        <div class="column">
-          {{#each articles}}
-            ID:{{_id}} {{name}}
-            <br /><br />
+        {{#each articles}}
+        <div class = "row">
+            <div class="column">
+          {{number}}.{{paragraph}}.{{line}} : {{text}}
+            </div>
+            {{#if is_approved}}
+            {{else}}
+            <form id="vote_yes">
+              <input type="hidden" id="articleID" value= {{_id}}>
+              <input type="submit" class="ui green submit button"  value="Aye!" />
+            </form>
+            <form id="vote_no">
+              <input type="hidden" id="articleID" value= {{_id}}/>
+              <input type="submit" class="ui red submit button"  value="NAY!" />
+            </form>
+            {{/if}}
+          </div>
           {{/each}}
-        </div>
-      </div>
-    </div>
-  </div>
 </template>

@@ -2,18 +2,21 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { Mongo } from 'meteor/mongo';
 
-
-
 Players = new Mongo.Collection('players');
 Games = new Mongo.Collection('games');
 Articles = new Mongo.Collection('articles');
 
 var imageStore = new FS.Store.GridFS("images");
+
 Images = new FS.Collection("images", {
  stores: [imageStore]
 });
-
-
+Meteor.methods({
+  'getStats'({collection}){
+    alert("help");
+    return collection.stats();
+  }
+});
 START_WORTH = 10;
 WORTH_INCREMENT = 5;
 MAX_WORTH = 30;

@@ -1,5 +1,6 @@
 Template.gamesSummary.helpers({
-  games(){return Games.find({_id: {$ne: 'null'}}).fetch();},
+  //games(){return Games.find({_id: {$ne: 'null'}}).fetch();},
+  games(){return Games.find({}).fetch();},
   player(){return Players.findOne({name: Meteor.user().username});},
 });
 Template.gamesSummary.events({
@@ -21,7 +22,6 @@ Template.gamesSummary.events({
 				{$push: {player_list : player.name}},
 				{$inc : {numPlayers  : game.numPlayers+1}}
 			)
-
 			Players.update(
 				{_id: Players.findOne({name: player.name})['_id']},
 				{$set:{game_id: (Games.findOne({player_list: player.name}))['_id']}}
