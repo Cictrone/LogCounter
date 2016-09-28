@@ -4,6 +4,9 @@ import { Mongo } from 'meteor/mongo';
 Players = new Mongo.Collection('players',{Mongo:'Mongo'});
 Games = new Mongo.Collection('games');
 Articles = new Mongo.Collection('articles');
+
+
+
 var imageStore = new FS.Store.GridFS("images");
 
 

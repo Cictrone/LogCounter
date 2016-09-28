@@ -1,7 +1,7 @@
 <template name="articles">
   <form id="new_article" >
     <div class="ui left icon input">
-      <input type="text" username="article_text" placeholder="Text">
+      <input type="text" name="article_text" placeholder="Text">
     </div>
     <input type="submit" value="Decree" class="ui teal submit button">
   </form>
@@ -10,7 +10,10 @@
     {{#each articles}}
       <div class = "row"  style="border:5px solid blue; padding:1px "></div>
       <div class="column" style="font-size:20px; border-style:solid" >
-      <a href="#" id="viewArticle">{{number}}.{{paragraph}}.{{line}} </a>
+        <form id="viewArticle">
+          <input type="hidden" id="articleID" value= {{_id}} />
+          <input type= 'submit' class= "link" value= {{number}}.{{paragraph.[0].num}}.{{paragraph.[0].line.[0].num}} />
+        </form>
       </div>
         {{#if is_approved}}
         <div class="column">Approved.</div>
@@ -40,4 +43,19 @@
 
 <template name="article_details">
   {{>linkbar}}
+  <br />
+  {{#with article}}
+  <div class= "ui  grid "  style="background-color:lightgrey">
+    {{#each paragraph}}
+    <div class = "row"  style="border:5px solid blue; padding:1px; padding-left:5em; text-align:left ">
+      Paragraph {{num}}.
+        {{#each line}}
+         <div class = "row"  style="border:1px solid blue; padding:1px; padding-left:5em; text-align:left ">
+        {{num}} : {{text}}
+      </div>
+        {{/each}}
+    </div>
+    {{/each}}
+  </div>
+  {{/with}}
 </template>

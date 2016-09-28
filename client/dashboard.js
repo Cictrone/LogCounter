@@ -31,7 +31,7 @@ Template.gamesSummary.events({
 });
 
 Template.playerSummary.helpers({
-  players(){return Players.find({}).fetch();},
+  players(){return Players.find({_id: {$ne: 'null'}}).fetch();},
   player(){return Players.findOne({username: Meteor.user().username});}
 
 });

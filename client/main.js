@@ -11,12 +11,9 @@ var imageStore = new FS.Store.GridFS("images");
 Images = new FS.Collection("images", {
  stores: [imageStore]
 });
-Meteor.methods({
-  'getStats'({collection}){
-    alert("help");
-    return collection.stats();
-  }
-});
+
+
+
 START_WORTH = 10;
 WORTH_INCREMENT = 5;
 MAX_WORTH = 30;

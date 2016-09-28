@@ -1,6 +1,10 @@
 Template.article_details.helpers({
   player(){return Players.findOne({username: Meteor.user().username});},
   articles(){return Articles.find({}).fetch();},
+  article(){return Session.get('article');
+}
+  });
+Template.article_details.events({
 });
 
 Template.articles.helpers({
@@ -10,12 +14,12 @@ Template.articles.helpers({
 });
 
 Template.articles.events({
-  'click #viewArticle'(event){
+  'submit #viewArticle': function(event){
     event.preventDefault();
+    let id = event.target.articleID.value;
     Session.set('prompt', 'article_details');
-
+    Session.set('article', Articles.findOne({_id : id}));
   },
-
 	'submit #new_article': function(event) {
     event.preventDefault();
     let text = event.target.article_text.value;
@@ -24,9 +28,7 @@ Template.articles.events({
         {_id : id},
         {$set:{
           number: Articles.find({}).count() + 1,
-          paragraph: 1,
-          line: 1,
-          text: text,
+          paragraph: [{line:[{text: text,num:1}],num:1}],
           is_approved: 0,
           yes_votes: 0,
           no_votes: 0,
