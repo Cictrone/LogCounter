@@ -1,18 +1,27 @@
 <template name="game">
     {{#if isInGame}}
       <h1>
-        {{player.game_id}}
+        <a class="ui dark-grey  button" id=changename >{{game.lobbyname}}</a>
       </h1>
       <br /><br /><br />
-      <div class="ui centered cards">
+        {{#with player}}
+        <div class="ui centered cards">
+          {{>playerCard}}
+        </div>
+<br />
+          {{> playerCard_buttons}}
+        {{/with}}
+
+<div class="ui centered cards" style="transform: scale({{scaler}},{{scaler}})">
+
         {{#each players}}
-        {{> playerCard}}
+          {{#if isPlayer username}}
+          {{else}}
+          {{> playerCard}}
+          {{/if}}
         {{/each}}
       </div>
-      <br /><br /><br />
-      {{#with player}}
-      {{> playerCard_buttons}}
-      {{/with}}
+
     {{else}}
       <h1>
         <div class="ui labeled primary button" id="newgame" tabindex="0">

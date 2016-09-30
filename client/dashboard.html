@@ -2,23 +2,26 @@
 <template name="gamesSummary">
   {{>linkbar}}
   <h1>Games</h1>
-  <div class="ui centered cards">
-  	<div  class = "ui grid">
-	    <div class="one column row">
-				<div class="column">
+  <div class= " grid "  style="background-color:grey;padding:20px; ">
 					{{#each games}}
-    					<form >
-    						ID:{{_id}} Num:{{numPlayers}} Players:{{player_list}}
-    						<input type="hidden" name='gameID' value={{_id}}>
-    						<input type="submit" value="Join Game" class="ui teal submit button">
-    						<br />
-    					</form>
-						  <br />
+            <div style="display:inline-block; border:5px solid blue; margin:20px; padding:10px; width:20% ">
+              <div style="display:inline-block; font-size:20px;  border-style:solid; height:5em; width:100%" >
+                {{#if finished}}
+                <form >
+                    <input type="hidden" name='gameID' value={{_id}}>
+                  <input type="submit" value={{winner}} class="ui red button" > <div style="text-align:left">Players: {{player_list}}</div>
+                </form>
+
+                {{else}}
+                  <form >
+                    <input type="hidden" name='gameID' value={{_id}}>
+                    <input type="submit" value={{lobbyname}} class="ui green submit button"><div style="text-align:left">Players: {{player_list}}</div>
+                  </form>
+                {{/if}}
+              </div>
+            </div>
 					{{/each}}
-				</div>
-			</div>
 	</div>
-  </div>
 </template>
 
 <template name="playerSummary">

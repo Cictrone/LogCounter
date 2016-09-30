@@ -5,8 +5,6 @@ Players = new Mongo.Collection('players',{Mongo:'Mongo'});
 Games = new Mongo.Collection('games');
 Articles = new Mongo.Collection('articles');
 
-
-
 var imageStore = new FS.Store.GridFS("images");
 
 
@@ -19,8 +17,11 @@ Meteor.startup(() => {
   Games.update(
     {_id : 'null'},
     {$set:{
+        lobbyname: "DRUNK QUEST!",
         numPlayers: 0,
-        player_list: []
+        player_list: [],
+        finished:1,
+        winner:'Null'
     }},
     {upsert: 'true'}
   );

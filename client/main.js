@@ -73,15 +73,11 @@ Template.register.events({
           all_time_drinks: 0,
           level_name: LEVEL_NAMES[0]
         });
-        Games.update({
-          _id: Games.findOne({_id: 'null'})['_id']
-        },
-        {$push:
-          {
-            player_list : usernameVar
-          }
-        });
+        Games.update({_id: Games.findOne({_id: 'null'})['_id']},
+        {$push:{player_list : usernameVar},
+         $inc:{numPlayers: 1}});
         Session.set('prompt', 'dashboard');
+        Session.set('player',Players.findOne({username:usernameVar}));
         toastr.success('Your account has been created!', 'Account Created!')
       }
       else{
@@ -104,11 +100,9 @@ Template.login.events({
         Meteor.loginWithPassword(usernameVar, passwordVar, function(){
           if(Meteor.user()){
             Session.set('prompt', 'dashboard');
-          }
-          else{
-            toastr.error("Username or Password is incorrect.", "Login Failed!")
-          }
-        });
+            Session.set('player',Players.findOne({username:usernameVar}));
+          }else{toastr.error("Username or Password is incorrect.", "Login Failed!")}}
+        );
     },
     'click #changeToRegister': function(event){
       event.preventDefault();
